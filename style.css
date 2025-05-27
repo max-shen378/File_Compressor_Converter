@@ -9,6 +9,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .wrapper {
@@ -228,3 +229,12 @@ footer a:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(79, 208, 224, 0.6);
 }
+
+@keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
