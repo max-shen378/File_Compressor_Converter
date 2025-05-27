@@ -71,7 +71,7 @@ h1 {
   overflow-y: auto;
 }
 
-/* Button */
+/* Main Action Button */
 .futuristic-btn {
   background-color: #4fd0e0;
   color: #1a1c20;
@@ -81,11 +81,31 @@ h1 {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, transform 0.2s ease;
+  will-change: transform;
 }
 
 .futuristic-btn:hover {
   background-color: #50e6f5;
+  transform: scale(1.05);
+}
+
+/* Convert Button */
+.convert-btn {
+  background-color: #4fd0e0;
+  color: #1a1c20;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  will-change: transform;
+}
+
+.convert-btn:hover {
+  background-color: #50e6f5;
+  transform: scale(1.05);
 }
 
 /* Progress Bar */
