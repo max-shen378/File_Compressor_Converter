@@ -72,24 +72,26 @@ h1 {
 
 /* Button styles */
 .futuristic-btn {
-  background: #4fd0e0;
-  color: #111;
+  background: linear-gradient(145deg, #4fd0e0, #37b6c9);
+  color: #0b0f14;
   border: none;
-  padding: 16px 38px;
-  font-size: 1.15em;
-  border-radius: 18px;
+  padding: 14px 30px;
+  font-size: 1em;
+  border-radius: 14px;
   cursor: pointer;
-  font-weight: 700;
+  transition: all 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(79, 208, 224, 0.3);
+  letter-spacing: 1px;
+  font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1.1px;
-  box-shadow: 0 0 20px #4fd0e0;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .futuristic-btn:hover {
-  background-color: #37b6c9;
-  box-shadow: 0 0 30px #37b6c9;
+  background: linear-gradient(145deg, #50e6f5, #2fa8bb);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(79, 208, 224, 0.5);
 }
+
 
 /* Download link style */
 .download-link {
