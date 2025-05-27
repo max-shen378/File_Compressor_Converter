@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File Converter</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Rajdhani&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="wrapper">
+    <h1>File Converter</h1>
+
+    <form id="convertForm">
+      <label for="convertFileInput" class="custom-file-upload">
+        Select File to Convert
+        <input type="file" id="convertFileInput" name="convertFile" required />
+      </label>
+
+      <div id="convertFileList" class="file-list" aria-live="polite" aria-atomic="true" role="region">No file selected.</div>
+
+      <div class="convert-section">
+        <label for="categorySelect">Category</label>
+        <select id="categorySelect" required>
+          <option value="" disabled selected>Select Category</option>
+          <option value="image">Image</option>
+          <option value="document">Document</option>
+          <option value="audio">Audio</option>
+          <option value="video">Video</option>
+        </select>
+      </div>
+
+      <div class="convert-section">
+        <label for="targetTypeSelect">Convert To</label>
+        <select id="targetTypeSelect" required disabled>
+          <option value="" disabled selected>Select target type</option>
+        </select>
+      </div>
+
+      <button type="submit" id="convertBtn" class="futuristic-btn" disabled>Convert File</button>
+    </form>
+
+    <div class="progress-container" id="convertProgress">
+      <div class="progress-bar" id="convertProgressBar"></div>
+    </div>
+
+    <a id="convertedDownloadLink" class="download-link" style="display:none;">Download Converted File</a>
+
+    <p style="margin-top:40px;">
+      Back to <a href="index.html">File Compressor</a>
+    </p>
+  </div>
+
+  <footer>
+    <p>© 2025 Your Company. <a href="about.html">About Us</a></p>
+  </footer>
+
+  <script>
+    const convertFileInput = document.getElementById('convertFileInput');
+    const convertFileList = document.getElementById('convertFileList');
+    const categorySelect = document.getElementById('categorySelect');
+    const targetTypeSelect = document.getElementById('targetTypeSelect');
+    const convertBtn = document.getElementById('convertBtn');
+    const convertProgress = document.getElementById('convertProgress');
+    const convertProgressBar = document.getElementById('convertProgressBar');
+    const convertedDownloadLink = document.getElementById('convertedDownloadLink');
+
+    // File selected display
+    convertFileInput.addEventListener('change', () => {
+      if (convertFileInput.files.length === 0) {
+        convertFileList.textContent = 'No file selected.';
+      } else {
+        const file = convertFileInput.files[0];
+        convertFileList.textContent = `${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+      }
+      checkEnableConvert();
+    });
+
+    // Conversion options by category
+    const conversionOptions = {
+      image: ['png', 'jpeg', 'bmp', 'gif', 'webp'],
+      document: ['pdf', 'docx', 'txt', 'md'],
+      audio: ['mp3', 'wav', 'ogg', 'aac'],
+      video: ['mp4', 'webm', 'ogg']
+    };
+
+    categorySelect.addEventListener('change', () => {
+      const category = categorySelect.value;
+      targetTypeSelect.innerHTML = '<option value="" disabled selected>Select target type</option>';
+      if (category && conversionOptions[category]) {
+        conversionOptions[category].forEach(type => {
+          const option = document.createElement('option');
+          option.value = type;
+          option.textContent = type.toUpperCase();
+          targetTypeSelect.appendChild(option);
+        });
+        targetTypeSelect.disabled = false;
+      } else {
+        targetTypeSelect.disabled = true;
+      }
+      checkEnableConvert();
+    });
+
+    targetTypeSelect.addEventListener('change', checkEnableConvert);
+
+    function checkEnableConvert() {
+      convertBtn.disabled = !(
+        convertFileInput.files.length === 1 &&
+        categorySelect.value &&
+        targetTypeSelect.value
+      );
+    }
+
+    // Dummy convert function simulates conversion and allows file download as-is (replace with real logic if backend used)
+    convertForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      convertBtn.disabled = true;
+      convertProgress.style.display = 'block';
+      convertProgressBar.style.width = '0%';
+      convertedDownloadLink.style.display = 'none';
+
+      try {
+        // Simulate conversion delay & progress
+        for (let i = 1; i <= 10; i++) {
+          await new Promise(r => setTimeout(r, 150));
+          convertProgressBar.style.width = `${i * 10}%`;
+        }
+
+        // For now just return the original file as downloadable
+        const file = convertFileInput.files[0];
+        const url = URL.createObjectURL(file);
+        convertedDownloadLink.href = url;
+        // Generate new filename with target extension
+        const baseName = file.name.replace(/\.[^/.]+$/, "");
+        const newExt = targetTypeSelect.value;
+        convertedDownloadLink.download = `${baseName}_converted.${newExt}`;
+        convertedDownloadLink.style.display = 'inline-block';
+      } catch (err) {
+        alert('Conversion failed: ' + err.message);
+      } finally {
+        convertBtn.disabled = false;
+        convertProgress.style.display = 'none';
+        convertProgressBar.style.width = '0%';
+      }
+    });
+  </script>
+</body>
+</html>
