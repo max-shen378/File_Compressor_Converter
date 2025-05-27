@@ -193,3 +193,39 @@ footer a:hover {
     width: 100%;
   }
 }
+.cta-convert {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(25, 30, 38, 0.85);
+  border: 1px solid #4fd0e0;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(79, 208, 224, 0.2);
+}
+
+.cta-convert p {
+  font-size: 1.1em;
+  color: #d4f1f9;
+  margin-bottom: 12px;
+}
+
+.convert-btn {
+  background: linear-gradient(145deg, #4fd0e0, #37b6c9);
+  color: #0b0f14;
+  padding: 12px 25px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 3px 10px rgba(79, 208, 224, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.convert-btn:hover {
+  background: linear-gradient(145deg, #50e6f5, #2fa8bb);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(79, 208, 224, 0.6);
+}
+
