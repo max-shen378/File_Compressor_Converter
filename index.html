@@ -15,6 +15,9 @@
         Select Files
         <input type="file" id="fileInput" name="files" multiple required />
       </label>
+      <label for ="compression">Compression Level(0-9): </label>
+      <input type="range" id="compressionRatio" min="0" max="9" value="5" />
+      <span id="compressionValue"> 5 </span>
       <div id="fileList" class="file-list" aria-live="polite" aria-atomic="true" role="region">No files selected.</div>
       <button type="submit" class="futuristic-btn">Compress Files</button>
     </form>
@@ -43,8 +46,10 @@
     const compressProgress = document.getElementById('compressProgress');
     const compressProgressBar = document.getElementById('compressProgressBar');
     const downloadLink = document.getElementById('downloadLink');
+    const compressionInputLvl = document.getElementById('compressionRatio');
+    const compressionValueDisplay = document.getElementById('compressionValue');
 
-    fileInput.addEventListener('change', () => {
+    fileInput.addEventListener('change', () => {  <!-- Displays the selected file/s -->
       if (fileInput.files.length === 0) {
         fileList.textContent = 'No files selected.';
       } else {
@@ -55,6 +60,10 @@
           fileList.appendChild(item);
         });
       }
+    });
+
+    compressionInputLvl.addEventListener('input', () => {
+      compressionValueDisplay.textContent = compressionInputLvl.value;
     });
 
     uploadForm.addEventListener('submit', async e => {
@@ -76,7 +85,11 @@
       }
 
       try {
-        const content = await zip.generateAsync({ type: 'blob' }, metadata => {
+        const content = await zip.generateAsync({ 
+          type: 'blob',
+          compression: 'DEFLATE',
+          compressionOptions: {level: compressionRatio}
+        }, metadata => {
           compressProgressBar.style.width = `${metadata.percent.toFixed(2)}%`;
         });
 
